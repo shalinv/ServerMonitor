@@ -29,10 +29,15 @@ const checkURLsPeriodically = (systems) => {
     console.log("Running every minute");
 
     for (const system of systems) {
+      const prevStatus = system.status;
       const start = Date.now();
       const code = await getCode(system.url);
       const latency = Date.now() - start;
       const status = getStatus(code);
+
+      if (prevStatus == "UP" && status == "DOWN") {
+      } else if (prevStatus == "DOWN" && status == "UP") {
+      }
 
       const newHistory = await History.create({
         url: system.url,
