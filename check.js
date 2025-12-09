@@ -1,5 +1,7 @@
 const cron = require("node-cron");
 const axios = require("axios");
+const mongoose = require("mongoose");
+const History = require("./models/history.js");
 
 async function getCode(url) {
   try {
@@ -27,12 +29,18 @@ const checkURLsPeriodically = (systems) => {
     console.log("Running every minute");
 
     for (const system of systems) {
+      const start = Date.now();
       const code = await getCode(system.url);
+      const latency = Date.now() - start;
       const status = getStatus(code);
 
-      system.statusCode = code;
-      system.status = status;
-      system.lastChecked = new Date().toISOString();
+      const newHistory = await History.create({
+        url: system.url,
+        timeStamp: new Date(),
+        status: status,
+        statusCode: code,
+        latency: latency,
+      });
     }
   });
 };

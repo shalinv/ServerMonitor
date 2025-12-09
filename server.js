@@ -24,7 +24,6 @@ mongoose
   .then(async () => {
     console.log("MongoDB Connected");
     systems = await Monitor.find();
-    console.log(systems);
     checkURLsPeriodically(systems);
   })
   .catch((err) => console.log(err));
