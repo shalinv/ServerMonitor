@@ -5,7 +5,6 @@ const MonitorSchema = new mongoose.Schema({
   lastChecked: { type: Date },
   status: { type: String, enum: ["UP", "DOWN"] },
   statusCode: { type: Number },
-  prevStatus: { type: String, enum: ["UP", "DOWN"] },
   latency: { type: Number },
 });
 

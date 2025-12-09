@@ -42,7 +42,6 @@ app.post("/add", async (req, res) => {
       lastChecked: new Date(),
       status: status,
       statusCode: code,
-      prevStatus: status,
       latency: latency,
     });
     res.json({ message: "Added to database", data: newMonitor });
