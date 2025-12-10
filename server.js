@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
+const path = require("path");
 const mongoose = require("mongoose");
 const Monitor = require("./models/monitor.js");
 const { checkURLsPeriodically } = require("./check.js");
@@ -8,6 +9,8 @@ const { checkURLsPeriodically } = require("./check.js");
 const app = express();
 dotenv.config();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "views")));
+app.set("view engine", "ejs");
 
 function getStatus(code) {
   if (code >= 200 && code < 300) {
@@ -44,6 +47,9 @@ app.post("/add", async (req, res) => {
       statusCode: code,
       latency: latency,
     });
+
+    systems.push(newMonitor);
+
     res.json({ message: "Added to database", data: newMonitor });
   } catch (err) {
     return res.status(400).json({
@@ -51,6 +57,14 @@ app.post("/add", async (req, res) => {
       error: err.message,
     });
   }
+});
+
+app.get("/", (req, res) => {
+  res.render("index", { systems: systems });
+});
+
+app.get("/history", (req, res) => {
+  res.render("history", { systems: systems });
 });
 
 app.listen(3000, () => {
