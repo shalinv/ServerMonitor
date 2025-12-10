@@ -2,6 +2,7 @@ const cron = require("node-cron");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const History = require("./models/history.js");
+const { sendEmail } = require("./mailer.js");
 
 async function getCode(url) {
   try {
@@ -36,7 +37,17 @@ const checkURLsPeriodically = (systems) => {
       const status = getStatus(code);
 
       if (prevStatus == "UP" && status == "DOWN") {
+        sendEmail(
+          "recepient@gmail.com",
+          `ALERT: ${system.url} is DOWN`,
+          `The service ${system.url} is DOWN. Status code: ${code} `
+        );
       } else if (prevStatus == "DOWN" && status == "UP") {
+        sendEmail(
+          "recepient@gmail.com",
+          `ALERT: ${system.url} is UP`,
+          `The service ${system.url} is UP. Status code: ${code} `
+        );
       }
 
       const newHistory = await History.create({
