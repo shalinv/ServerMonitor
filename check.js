@@ -2,6 +2,7 @@ const cron = require("node-cron");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const History = require("./models/history.js");
+const Monitor = require("./models/monitor.js");
 const { sendEmail } = require("./mailer.js");
 
 async function getCode(url) {
@@ -49,6 +50,12 @@ const checkURLsPeriodically = (systems) => {
           `The service ${system.url} is UP. Status code: ${code} `
         );
       }
+      await Monitor.findByIdAndUpdate(system._id, {
+        status: status,
+        statusCode: code,
+        latency: latency,
+        lastChecked: new Date(),
+      });
 
       const newHistory = await History.create({
         url: system.url,

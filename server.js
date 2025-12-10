@@ -59,7 +59,8 @@ app.post("/add", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  systems = await Monitor.find();
   res.render("index", { systems: systems });
 });
 
