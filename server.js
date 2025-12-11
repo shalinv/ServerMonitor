@@ -66,8 +66,12 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/history", async (req, res) => {
+  let history = await History.find().sort({ timeStamp: -1 });
+  let filter = req.query.filter;
   const monitor = await Monitor.find();
-  const history = await History.find().sort({ timeStamp: -1 });
+  if (filter != "all") {
+    history = await History.find({ url: filter }).sort({ timeStamp: -1 });
+  }
   res.render("viewhistory", { systems: history, monitor: monitor });
 });
 

@@ -15,5 +15,5 @@ addBtn.addEventListener("click", () => {
 
 const history = document.getElementById("history");
 history.addEventListener("click", () => {
-  window.location.href = `/history`;
+  window.location.href = `/history/?filter=all`;
 });

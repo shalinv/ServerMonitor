@@ -13,7 +13,7 @@
       <select id="filter" name="filter"
         class="hover:bg-gray-300 bg-white text-black rounded-sm p-1 m-3">
         
-        <option value="" disabled selected>Filter</option>
+        <option value="all" selected>All</option>
 
         <% monitor.forEach(system => { %>
           <option value="<%= system.url %>"><%= system.url %></option>
@@ -27,12 +27,21 @@
             <h3 ><%=system.url%></h3>
             <h3>Code: <%=system.statusCode%></h3>
             <h3>Latency: <%=system.latency%> ms</h3>
+            <h3>
+              Time: <%= new Date(system.timeStamp).toLocaleString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+              }) %>
+            </h3>
             <div class="w-2.5 h-2.5 rounded-full m-2 
               <%= system.status === "UP" ? "bg-green-400" : "bg-red-500" %>">
             </div>
         </div>
       <% })%>
     </div>
-    <script src="./viewhistory.js"></script>
+    <script src="/viewhistory.js"></script>
   </body>
 </html>

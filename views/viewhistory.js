@@ -5,6 +5,11 @@ goHome.addEventListener("click", () => {
 
 const filterOpt = document.getElementById("filter");
 filterOpt.addEventListener("click", () => {
+  console.log("clicked");
   const filterVal = filterOpt.value;
-  //code later
+  if (filterVal == "all") {
+    window.location.href = "/history/?filter=all";
+  } else {
+    window.location.href = `/history/?filter=${filterVal}`;
+  }
 });
