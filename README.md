@@ -13,6 +13,12 @@ This service periodically checks endpoints, logs results into MongoDB, provides 
 - 📡 Fast HTTP checks with axios  
 - 📊 Dashboard UI (Tailwind + Vanilla JS) to view monitor status  
 - 📧 Email alerts using Nodemailer  
+## Screenshots
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <img src="images/Screenshot1.png" width="500">
+  <img src="images/Screenshot2.png" width="500">
+  <img src="images/Screenshot3.png" width="500">
+</div>
 
 ## 📦 Installation
 
