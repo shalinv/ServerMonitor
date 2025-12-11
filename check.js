@@ -37,6 +37,8 @@ const checkURLsPeriodically = (systems) => {
       const latency = Date.now() - start;
       const status = getStatus(code);
 
+      // Uncomment if you want email feature
+      /*
       if (prevStatus == "UP" && status == "DOWN") {
         sendEmail(
           "recepient@gmail.com",
@@ -50,6 +52,7 @@ const checkURLsPeriodically = (systems) => {
           `The service ${system.url} is UP. Status code: ${code} `
         );
       }
+        */
       await Monitor.findByIdAndUpdate(system._id, {
         status: status,
         statusCode: code,

@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const mongoose = require("mongoose");
 const Monitor = require("./models/monitor.js");
+const History = require("./models/history.js");
 const { checkURLsPeriodically } = require("./check.js");
 
 const app = express();
@@ -64,8 +65,10 @@ app.get("/", async (req, res) => {
   res.render("index", { systems: systems });
 });
 
-app.get("/history", (req, res) => {
-  res.render("history", { systems: systems });
+app.get("/history", async (req, res) => {
+  const monitor = await Monitor.find();
+  const history = await History.find().sort({ timeStamp: -1 });
+  res.render("viewhistory", { systems: history, monitor: monitor });
 });
 
 app.listen(3000, () => {

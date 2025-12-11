@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Monitor History</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-950">
+    <h1 class="text-white text-center font-bold mt-4 text-4xl">History</h1>
+    <div class="flex flex-wrap justify-between">
+      <button id="home" class="hover:bg-gray-300 bg-white text-black rounded-sm p-1 m-3 ">Home</button>
+      <select id="filter" name="filter"
+        class="hover:bg-gray-300 bg-white text-black rounded-sm p-1 m-3">
+        
+        <option value="" disabled selected>Filter</option>
+
+        <% monitor.forEach(system => { %>
+          <option value="<%= system.url %>"><%= system.url %></option>
+        <% }) %>
+
+      </select>
+    </div>
+    <div class="bg-gray-700 m-3 rounded-md p-1">
+      <%systems.forEach(system => {%>
+        <div class="bg-black rounded-md m-2 py-3 px-3 text-white flex flex-wrap justify-between">
+            <h3 ><%=system.url%></h3>
+            <h3>Code: <%=system.statusCode%></h3>
+            <h3>Latency: <%=system.latency%> ms</h3>
+            <div class="w-2.5 h-2.5 rounded-full m-2 
+              <%= system.status === "UP" ? "bg-green-400" : "bg-red-500" %>">
+            </div>
+        </div>
+      <% })%>
+    </div>
+    <script src="./viewhistory.js"></script>
+  </body>
+</html>
