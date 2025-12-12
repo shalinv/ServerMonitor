@@ -26,7 +26,6 @@ This service periodically checks endpoints, logs results into MongoDB, provides 
 ```bash
 git clone <your-repo-url>
 cd server-monitor
-npm install
 ```
 2. Create .env and add the following
 ```bash
