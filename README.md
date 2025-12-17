@@ -24,8 +24,8 @@ This service periodically checks endpoints, logs results into MongoDB, provides 
 
 1. Clone the repo
 ```bash
-git clone <your-repo-url>
-cd server-monitor
+git clone https://github.com/shalinv/ServerMonitor.git
+cd ServerMonitor
 ```
 2. Create .env and add the following
 ```bash
